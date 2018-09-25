@@ -10,7 +10,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = { 
-      recipes: recipes,
+      recipes: [],
       searchfield : ''
     }
   }
@@ -19,20 +19,21 @@ class App extends React.Component {
     this.setState({ searchfield: event.target.value });
   }
 
+  componentDidMount() {
+      this.setState( {recipes: recipes });
+      
+  }
+
   render() {
     const filterdRecipes = this.state.recipes.filter(recipe => {
       return recipe.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
     })
     return (
-      <div>
-        <div className="fl w-10 ">/</div>
-        <div className="fl  w-80 pa2 tc">
+        <div className="pa2 tc">
           <Title />
           <SearchBox searchChange={this.onSearchChange}/>
           <CardList recipes={filterdRecipes}/>
         </div>
-        <div className="fl w-10 ">/</div>
-      </div>
     );
   }
 
